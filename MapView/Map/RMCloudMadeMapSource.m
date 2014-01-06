@@ -148,7 +148,7 @@ NSString * const RMCloudMadeAccessTokenRequestFailed = @"RMCloudMadeAccessTokenR
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
 			  self, tile.zoom, self.minZoom, self.maxZoom);
 	NSAssert(accessToken,@"CloudMade access token must be non-empty");
-	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d/%d/%d/%d/%d.png?token=%@",
+	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d@2x/%d/%d/%d/%d.png?token=%@",
 			accessKey,
 			cloudmadeStyleNumber,
 			kDefaultCloudMadeSize, tile.zoom, tile.x, tile.y,accessToken];
