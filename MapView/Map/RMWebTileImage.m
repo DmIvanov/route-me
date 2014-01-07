@@ -69,7 +69,7 @@ static NSOperationQueue *_queue = nil;
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:self];
 
-	[self requestTile];
+	//[self requestTile];
 	
 	return self;
 }
