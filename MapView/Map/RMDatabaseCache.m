@@ -111,6 +111,10 @@
 	// The tile probably hasn't loaded any data yet... we must be patient.
 	
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImageData:) name:RMMapImageLoadedNotification object:image];
+    
+    static int tiles = 0;
+    tiles++;
+    RMLog(@"tiles : %d", tiles);
 }
 
 -(void) addImageData: (NSNotification *)notification
@@ -121,12 +125,12 @@
 	
 	@synchronized (self) {
 
-		if (capacity != 0) {
-			NSUInteger tilesInDb = [dao count];
-			if (capacity <= tilesInDb) {
-				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
-			}
-		}
+//		if (capacity != 0) {
+//			NSUInteger tilesInDb = [dao count];
+//			if (capacity <= tilesInDb) {
+//				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
+//			}
+//		}
         NSDate *lastUsedTime = [[image lastUsedTime] retain];
 		[dao addData:data LastUsed: lastUsedTime ForTile:RMTileKey([image tile])];
         [lastUsedTime release]; lastUsedTime = nil;
@@ -136,8 +140,10 @@
 													name:RMMapImageLoadedNotification
 												  object:image];
 	
-	
-//	RMLog(@"%d items in DB", [dao count]);
+	static double size = .0;
+    size += (float)data.length/1024.0f/1024.0f;
+	RMLog(@"%d items in DB (zoom = %d)", [dao count], image.tile.zoom);
+    RMLog(@"database size in MB: %.3f", size);
 }
 
 -(RMTileImage*) cachedImage:(RMTile)tile
