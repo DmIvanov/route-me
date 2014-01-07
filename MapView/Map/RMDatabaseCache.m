@@ -36,6 +36,7 @@
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
+#if 0
 	NSArray *paths;
 	
 	if (useCacheDir) {
@@ -61,6 +62,9 @@
 		return [cachePath stringByAppendingPathComponent:filename];
 	}
 	return nil;
+#endif
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_10_16" ofType:@"sqlite"];
+    return path;
 }
 
 -(id) initWithDatabase: (NSString*)path
@@ -143,7 +147,7 @@
 	
 	static double size = .0;
     size += (float)data.length/1024.0f/1024.0f;
-	RMLog(@"%d items in DB (zoom = %d)", [dao count], image.tile.zoom);
+	RMLog(@"%2.d items in DB (zoom = %2.d xTile = %5.d yTile = %5.d)", [dao count], image.tile.zoom, image.tile.x, image.tile.y);
     RMLog(@"database size in MB: %.3f", size);
 }
 

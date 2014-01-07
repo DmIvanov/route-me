@@ -73,7 +73,7 @@
 	enableZoom = YES;
 	enableRotate = NO;
 	decelerationFactor = kDefaultDecelerationFactor;
-	deceleration = NO;
+	deceleration = YES;
 	
     screenScale = 0.0;
     

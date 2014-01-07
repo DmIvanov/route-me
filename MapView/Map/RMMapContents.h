@@ -46,8 +46,8 @@ enum {
 #define kDefaultInitialLatitude 59.93
 #define kDefaultInitialLongitude 30.3
 
-#define kDefaultMinimumZoomLevel 0.0
-#define kDefaultMaximumZoomLevel 25.0
+#define kDefaultMinimumZoomLevel 10.0
+#define kDefaultMaximumZoomLevel 16.0
 #define kDefaultInitialZoomLevel 12.0
 
 @class RMMarkerManager;
