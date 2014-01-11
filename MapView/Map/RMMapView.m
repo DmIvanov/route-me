@@ -272,10 +272,22 @@
 		
 		// see if new bounds are within constrained bounds, and constrain if necessary
         BOOL constrained = NO;
-		if ( newBounds.origin.northing < SWconstraint.northing ) { newBounds.origin.northing = SWconstraint.northing; constrained = YES; }
-        if ( newBounds.origin.northing+newBounds.size.height > NEconstraint.northing ) { newBounds.origin.northing = NEconstraint.northing - newBounds.size.height; constrained = YES; }
-        if ( newBounds.origin.easting < SWconstraint.easting ) { newBounds.origin.easting = SWconstraint.easting; constrained = YES; }
-        if ( newBounds.origin.easting+newBounds.size.width > NEconstraint.easting ) { newBounds.origin.easting = NEconstraint.easting - newBounds.size.width; constrained = YES; }
+		if ( newBounds.origin.northing < SWconstraint.northing ) {
+            newBounds.origin.northing = SWconstraint.northing;
+            constrained = YES;
+        }
+        if ( newBounds.origin.northing+newBounds.size.height > NEconstraint.northing ) {
+            newBounds.origin.northing = NEconstraint.northing - newBounds.size.height;
+            constrained = YES;
+        }
+        if ( newBounds.origin.easting < SWconstraint.easting ) {
+            newBounds.origin.easting = SWconstraint.easting;
+            constrained = YES;
+        }
+        if ( newBounds.origin.easting+newBounds.size.width > NEconstraint.easting ) {
+            newBounds.origin.easting = NEconstraint.easting - newBounds.size.width;
+            constrained = YES;
+        }
         if ( constrained ) 
         {
             // Adjust delta to match constraint
@@ -286,10 +298,15 @@
         }
 	}
 
-	if (_delegateHasBeforeMapMove) [delegate beforeMapMove: self];
+	if (_delegateHasBeforeMapMove)
+        [delegate beforeMapMove: self];
+    
 	[self.contents moveBy:delta];
-	if (_delegateHasAfterMapMove) [delegate afterMapMove: self];
-	if (_delegateHasMapViewRegionDidChange) [delegate mapViewRegionDidChange:self];
+    
+	if (_delegateHasAfterMapMove)
+        [delegate afterMapMove: self];
+	if (_delegateHasMapViewRegionDidChange)
+        [delegate mapViewRegionDidChange:self];
 }
  
 - (void)zoomByFactor: (float) zoomFactor near:(CGPoint) center
