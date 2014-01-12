@@ -78,7 +78,8 @@
 {
 	//	RMTileRect targetRect = [content tileBounds];
 	BOOL contained = CGRectContainsRect(loadedBounds, [content screenBounds]);
-	
+//	RMLog([NSString stringWithFormat:@"loaded %@", NSStringFromCGRect(loadedBounds)]);
+//    RMLog([NSString stringWithFormat:@"content %@", NSStringFromCGRect([content screenBounds])]);
 	int targetZoom = (int)([[content mercatorToTileProjection] calculateNormalisedZoomFromScale:[content scaledMetersPerPixel]]);
 	if((targetZoom > content.maxZoom) || (targetZoom < content.minZoom))
           RMLog(@"target zoom %d is outside of RMMapContents limits %f to %f",
@@ -93,6 +94,7 @@
 		//		RMLog(@"reassembling because target zoom = %f, loaded zoom = %d", targetZoom, loadedZoom);
 	}
 	
+    //RMLog(@"%d %d", contained, targetZoom == loadedZoom);
 	return contained && targetZoom == loadedZoom;
 }
 

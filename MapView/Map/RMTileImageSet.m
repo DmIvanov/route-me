@@ -35,6 +35,18 @@
 
 #import "RMMercatorToTileProjection.h"
 
+#import "DINotificationNames.h"
+
+
+@interface RMTileImageSet()
+{
+    int tilesNeeded;
+    int tilesPassed;
+    int tilesEmpty;
+}
+
+@end
+
 @implementation RMTileImageSet
 
 @synthesize delegate, tileDepth;
@@ -158,13 +170,26 @@
 	{
 		[tileImage setScreenLocation:screenLocation];
 		[images addObject:dummyTile];
+        tilesPassed++;
 	}
 	else
 	{
 		RMTileImage *image = [tileSource tileImage:tile];
-		if (image != nil)
+		if (image != nil) {
 			[self addTile:tile WithImage:image At:screenLocation];
-	}
+            tilesPassed++;
+        }
+        else {
+            tilesPassed++;
+            tilesEmpty++;
+        }
+    }
+    
+    if (tilesPassed == tilesNeeded && tilesEmpty) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:NO_TILE_IN_DB
+                                                            object:nil];
+        tilesEmpty = 0;
+    }
 }
 
 // Add tiles inside rect protected to bounds. Return rectangle containing bounds
@@ -202,19 +227,29 @@
 		screenLocation.size.height = pixelsPerTile;
 		t.zoom = rect.origin.tile.zoom;
 
+        tilesNeeded = 0;
+        tilesPassed = 0;
 		for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 		{
 			for (t.y = roundedRect.origin.tile.y; t.y < roundedRect.origin.tile.y + tileRegionHeight; t.y++)
 			{
-				RMTile normalisedTile = [proj normaliseTile: t];
+                tilesNeeded++;
+			}
+		}
 
+        for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
+		{
+			for (t.y = roundedRect.origin.tile.y; t.y < roundedRect.origin.tile.y + tileRegionHeight; t.y++)
+			{
+				RMTile normalisedTile = [proj normaliseTile: t];
+                
 				if (RMTileIsDummy(normalisedTile))
 					continue;
-
-				// this regrouping of terms is better for calculation precision (issue 128)		
-				screenLocation.origin.x = bounds.origin.x + (t.x - rect.origin.tile.x - rect.origin.offset.x) * pixelsPerTile;		
+                
+				// this regrouping of terms is better for calculation precision (issue 128)
+				screenLocation.origin.x = bounds.origin.x + (t.x - rect.origin.tile.x - rect.origin.offset.x) * pixelsPerTile;
 				screenLocation.origin.y = bounds.origin.y + (t.y - rect.origin.tile.y - rect.origin.offset.y) * pixelsPerTile;
-
+                //RMLog(NSStringFromCGRect(screenLocation));
 				[self addTile:normalisedTile At:screenLocation];
 			}
 		}
@@ -257,6 +292,7 @@
 - (void)moveBy: (CGSize) delta
 {
     @synchronized(self){
+        //RMLog(@"%@", images);
         for (RMTileImage *image in images)
         {
             [image moveBy: delta];
@@ -543,6 +579,18 @@
 		// if haven't continued, tile is outside of rect
 		[self removeTile:tile];
 	}
+}
+
+
+-(CGRect)imagesRectOnscreen {
+    
+    CGRect rect = CGRectNull;
+    
+    for (RMTileImage *image in images) {
+        rect = CGRectUnion(rect, image.screenLocation);
+    }
+    
+    return rect;
 }
 
 @end

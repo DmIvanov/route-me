@@ -43,12 +43,12 @@ enum {
 	RMMapMinWidthBound		= 2
 };
 
-#define kDefaultInitialLatitude 59.93
-#define kDefaultInitialLongitude 30.3
+#define kDefaultInitialLatitude 59.933
+#define kDefaultInitialLongitude 30.315
 
 #define kDefaultMinimumZoomLevel 10.0
 #define kDefaultMaximumZoomLevel 16.0
-#define kDefaultInitialZoomLevel 12.0
+#define kDefaultInitialZoomLevel 13.0
 
 @class RMMarkerManager;
 @class RMProjection;

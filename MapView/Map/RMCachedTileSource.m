@@ -72,7 +72,9 @@
 	else
 	{
 		RMTileImage *image = [tileSource tileImage:tile];
-		[cache addTile:tile WithImage:image];
+        if (image) {
+            [cache addTile:tile WithImage:image];
+        }
 		return image;
 	}
 }

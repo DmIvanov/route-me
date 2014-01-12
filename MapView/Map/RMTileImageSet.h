@@ -84,6 +84,8 @@
 -(RMTileImage *) anyTileImage;
 -(void) removeTilesOutsideOf: (RMTileRect)rect;
 
+- (CGRect)imagesRectOnscreen;
+
 @property (assign, nonatomic, readwrite) id delegate;
 // tileDepth defaults to zero. if tiles have no alpha, set this higher, 3 or so, to make zooming smoother
 @property (assign, readwrite) short zoom, tileDepth;
