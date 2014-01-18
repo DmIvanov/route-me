@@ -30,13 +30,18 @@
 #import "RMTileImage.h"
 #import "RMTile.h"
 
+#import "DIDefaults.h"
+
 @implementation RMDatabaseCache
 
 @synthesize databasePath;
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
-#if 0
+#if OFFLINE_MODE
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_17" ofType:@"sqlite"];
+    return path;
+#else
 	NSArray *paths;
 	
 	if (useCacheDir) {
@@ -63,8 +68,6 @@
 	}
 	return nil;
 #endif
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_10_16" ofType:@"sqlite"];
-    return path;
 }
 
 -(id) initWithDatabase: (NSString*)path
