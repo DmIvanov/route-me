@@ -33,7 +33,7 @@
 #import "RMTiledLayerController.h"
 #import "RMProjection.h"
 
-#import "DIDefaults.h"
+#import "DIHelper.h"
 
 
 @implementation RMAbstractMercatorWebSource
@@ -134,11 +134,10 @@
 	}
 	else if(networkOperations) 
 	{
-#if OFFLINE_MODE
-        image = nil;
-#else
-        image = [RMTileImage imageForTile:tile withURL:[self tileURL:tile]];
-#endif
+        if ([DIHelper offlineMode])
+            image = nil;
+        else
+            image = [RMTileImage imageForTile:tile withURL:[self tileURL:tile]];
 	}
 	else
 	{

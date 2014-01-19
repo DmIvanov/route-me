@@ -199,6 +199,8 @@
 		B8FA92190E9315EC003A9FE6 /* RMLayerCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */; };
 		B8FA921A0E9315EC003A9FE6 /* RMLayerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */; };
 		C43BF105188AF7C4007B8FF7 /* DIDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = C43BF104188AF7C4007B8FF7 /* DIDefaults.h */; };
+		C43BF10D188B37EB007B8FF7 /* DIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C43BF10B188B37EB007B8FF7 /* DIHelper.h */; };
+		C43BF10E188B37EB007B8FF7 /* DIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C43BF10C188B37EB007B8FF7 /* DIHelper.m */; };
 		C4BB1A4C18814D780067C041 /* DINotificationNames.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BB1A4B18814D780067C041 /* DINotificationNames.h */; };
 		C4BD888518708D5600128CD1 /* RMCloudMadeMapSource.h in Headers */ = {isa = PBXBuildFile; fileRef = C4BD888318708D5600128CD1 /* RMCloudMadeMapSource.h */; };
 		C4BD888618708D5600128CD1 /* RMCloudMadeMapSource.m in Sources */ = {isa = PBXBuildFile; fileRef = C4BD888418708D5600128CD1 /* RMCloudMadeMapSource.m */; };
@@ -393,6 +395,8 @@
 		B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLayerCollection.h; sourceTree = "<group>"; };
 		B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLayerCollection.m; sourceTree = "<group>"; };
 		C43BF104188AF7C4007B8FF7 /* DIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDefaults.h; sourceTree = "<group>"; };
+		C43BF10B188B37EB007B8FF7 /* DIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DIHelper.h; path = DIClasses/DIHelper.h; sourceTree = "<group>"; };
+		C43BF10C188B37EB007B8FF7 /* DIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DIHelper.m; path = DIClasses/DIHelper.m; sourceTree = "<group>"; };
 		C4BB1A4B18814D780067C041 /* DINotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DINotificationNames.h; sourceTree = "<group>"; };
 		C4BD888318708D5600128CD1 /* RMCloudMadeMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCloudMadeMapSource.h; sourceTree = "<group>"; };
 		C4BD888418708D5600128CD1 /* RMCloudMadeMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCloudMadeMapSource.m; sourceTree = "<group>"; };
@@ -848,6 +852,8 @@
 			children = (
 				C4BB1A4B18814D780067C041 /* DINotificationNames.h */,
 				C43BF104188AF7C4007B8FF7 /* DIDefaults.h */,
+				C43BF10B188B37EB007B8FF7 /* DIHelper.h */,
+				C43BF10C188B37EB007B8FF7 /* DIHelper.m */,
 			);
 			name = DIFiles;
 			sourceTree = "<group>";
@@ -870,6 +876,7 @@
 				B8C974290E8A19B2007D16AD /* RMFileTileImage.h in Headers */,
 				B8C9742A0E8A19B2007D16AD /* RMTileImage.h in Headers */,
 				B8C9742B0E8A19B2007D16AD /* RMMemoryCache.h in Headers */,
+				C43BF10D188B37EB007B8FF7 /* DIHelper.h in Headers */,
 				B8C9742D0E8A19B2007D16AD /* RMFractalTileProjection.h in Headers */,
 				B8C9742F0E8A19B2007D16AD /* RMMapLayer.h in Headers */,
 				B8C974310E8A19B2007D16AD /* RMAbstractMercatorWebSource.h in Headers */,
@@ -1208,6 +1215,7 @@
 				126693040EB76C0B00E002D5 /* RMConfiguration.m in Sources */,
 				23A0AAE90EB90A99003A4521 /* RMFoundation.c in Sources */,
 				B8800FF00EC3A237003E9CDD /* RMMarkerManager.m in Sources */,
+				C43BF10E188B37EB007B8FF7 /* DIHelper.m in Sources */,
 				B8CEB1C60ED5A3480014C431 /* RMPath.m in Sources */,
 				2B5682730F68E36000E8DF40 /* RMOpenAerialMapSource.m in Sources */,
 				96FE8E370F72D01B00A11CF0 /* RMYahooMapSource.m in Sources */,

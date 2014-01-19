@@ -30,7 +30,7 @@
 #import "RMTileImage.h"
 #import "RMTile.h"
 
-#import "DIDefaults.h"
+#import "DIHelper.h"
 
 @implementation RMDatabaseCache
 
@@ -38,36 +38,37 @@
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
-#if OFFLINE_MODE
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_17" ofType:@"sqlite"];
-    return path;
-#else
-	NSArray *paths;
-	
-	if (useCacheDir) {
-		paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-	} else {
-		paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	}
-	
-	if ([paths count] > 0) // Should only be one...
-	{
-		NSString *cachePath = [paths objectAtIndex:0];
-		
-		// check for existence of cache directory
-		if ( ![[NSFileManager defaultManager] fileExistsAtPath: cachePath]) 
-		{
-			// create a new cache directory
-			[[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:nil];
-		}
-		
-		/// \bug magic string literals
-        NSString *filename = @"spb_10_16.sqlite";
-		//NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
-		return [cachePath stringByAppendingPathComponent:filename];
-	}
-	return nil;
-#endif
+    if ([DIHelper offlineMode]) {
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_10_16" ofType:@"sqlite"];
+        return path;
+    }
+    else {
+        NSArray *paths;
+        
+        if (useCacheDir) {
+            paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        } else {
+            paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        }
+        
+        if ([paths count] > 0) // Should only be one...
+        {
+            NSString *cachePath = [paths objectAtIndex:0];
+            
+            // check for existence of cache directory
+            if ( ![[NSFileManager defaultManager] fileExistsAtPath: cachePath])
+            {
+                // create a new cache directory
+                [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:nil];
+            }
+            
+            /// \bug magic string literals
+            NSString *filename = @"spb_18.sqlite";
+            //NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
+            return [cachePath stringByAppendingPathComponent:filename];
+        }
+        return nil;
+    }
 }
 
 -(id) initWithDatabase: (NSString*)path

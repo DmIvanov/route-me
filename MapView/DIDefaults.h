@@ -12,5 +12,3 @@
 #else
 #   define DLog(...)
 #endif
-
-#define OFFLINE_MODE    YES
