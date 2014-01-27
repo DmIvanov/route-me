@@ -12,7 +12,7 @@
 
 + (BOOL)offlineMode {
     
-    return NO;
+    return YES;
 }
 
 @end
