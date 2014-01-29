@@ -63,7 +63,7 @@
             }
             
             /// \bug magic string literals
-            NSString *filename = @"spb_18.sqlite";
+            NSString *filename = @"spb_119909_10_17.sqlite";
             //NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
             return [cachePath stringByAppendingPathComponent:filename];
         }

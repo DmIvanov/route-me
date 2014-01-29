@@ -10,9 +10,44 @@
 
 @implementation DIHelper
 
+
+#pragma mark - Offline Mode
+
 + (BOOL)offlineMode {
     
     return NO;
 }
+
+
+#pragma mark - Zoom
+
++ (double)maxZoom {
+    
+    return 18.;
+}
+
++ (double)minZoom {
+    
+    return 10.;
+}
+
++ (double)initialZoom {
+    
+    return 11.;
+}
+
+
+#pragma mark - LatLong
+
++ (double)initialLatitude {
+    
+    return 59.933;
+}
+
++ (double)initialLongitude {
+    
+    return 30.315;
+}
+
 
 @end

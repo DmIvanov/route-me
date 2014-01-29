@@ -47,7 +47,7 @@
 
 #import "RMMarker.h"
 
-
+#import "DIHelper.h"
 
 
 @interface RMMapContents (PrivateMethods)
@@ -79,15 +79,15 @@
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = kDefaultInitialLatitude;
-	here.longitude = kDefaultInitialLongitude;
+	here.latitude = [DIHelper initialLatitude];
+	here.longitude = [DIHelper initialLongitude];
 	
 	return [self initWithView:view
 				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
-	  			    zoomLevel:kDefaultInitialZoomLevel
-				 maxZoomLevel:kDefaultMaximumZoomLevel
-				 minZoomLevel:kDefaultMinimumZoomLevel
+	  			    zoomLevel:[DIHelper initialZoom]
+				 maxZoomLevel:[DIHelper maxZoom]
+				 minZoomLevel:[DIHelper minZoom]
 			  backgroundImage:nil
                   screenScale:0];
 }
@@ -95,15 +95,15 @@
 - (id)initWithView: (UIView*) view screenScale:(float)theScreenScale {
     LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = kDefaultInitialLatitude;
-	here.longitude = kDefaultInitialLongitude;
+	here.latitude = [DIHelper initialLatitude];
+	here.longitude = [DIHelper initialLongitude];
 	
 	return [self initWithView:view
 				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
-	  			    zoomLevel:kDefaultInitialZoomLevel
-				 maxZoomLevel:kDefaultMaximumZoomLevel
-				 minZoomLevel:kDefaultMinimumZoomLevel
+	  			    zoomLevel:[DIHelper initialZoom]
+				 maxZoomLevel:[DIHelper maxZoom]
+				 minZoomLevel:[DIHelper minZoom]
 			  backgroundImage:nil
                   screenScale:theScreenScale];
 }
@@ -118,15 +118,15 @@
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = kDefaultInitialLatitude;
-	here.longitude = kDefaultInitialLongitude;
+	here.latitude = [DIHelper initialLatitude];
+	here.longitude = [DIHelper initialLongitude];
 	
 	return [self initWithView:view
 				   tilesource:newTilesource
 				 centerLatLon:here
-					zoomLevel:kDefaultInitialZoomLevel
-				 maxZoomLevel:kDefaultMaximumZoomLevel
-				 minZoomLevel:kDefaultMinimumZoomLevel
+					zoomLevel:[DIHelper initialZoom]
+				 maxZoomLevel:[DIHelper maxZoom]
+				 minZoomLevel:[DIHelper minZoom]
 			  backgroundImage:nil
                   screenScale:theScreenScale];
 }

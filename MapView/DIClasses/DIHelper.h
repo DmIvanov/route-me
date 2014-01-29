@@ -12,4 +12,11 @@
 
 + (BOOL)offlineMode;
 
++ (double)maxZoom;
++ (double)minZoom;
++ (double)initialZoom;
+
++ (double)initialLatitude;
++ (double)initialLongitude;
+
 @end
