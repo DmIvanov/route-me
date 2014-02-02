@@ -36,6 +36,8 @@
 #import "RMProjection.h"
 #import "RMMarkerManager.h"
 
+#import "DIHelper.h"
+
 @interface RMMapView (PrivateMethods)
 // methods for post-touch deceleration, ala UIScrollView
 - (void)startDecelerationWithDelta:(CGSize)delta;
@@ -73,7 +75,7 @@
 	enableZoom = YES;
 	enableRotate = NO;
 	decelerationFactor = kDefaultDecelerationFactor;
-	deceleration = YES;
+	deceleration = [DIHelper deceleration];
 	
     screenScale = 0.0;
     
@@ -298,6 +300,11 @@
         }
 	}
 
+    if ([delegate respondsToSelector:@selector(checkTilesAvailability:)])
+        delta = [delegate checkTilesAvailability:delta];
+    if (CGSizeEqualToSize(delta, CGSizeZero))
+        return;
+     
 	if (_delegateHasBeforeMapMove)
         [delegate beforeMapMove: self];
     

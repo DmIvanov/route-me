@@ -38,15 +38,6 @@
 #import "DINotificationNames.h"
 
 
-@interface RMTileImageSet()
-{
-    int tilesNeeded;
-    int tilesPassed;
-    int tilesEmpty;
-}
-
-@end
-
 @implementation RMTileImageSet
 
 @synthesize delegate, tileDepth;
@@ -170,25 +161,13 @@
 	{
 		[tileImage setScreenLocation:screenLocation];
 		[images addObject:dummyTile];
-        tilesPassed++;
 	}
 	else
 	{
 		RMTileImage *image = [tileSource tileImage:tile];
 		if (image != nil) {
 			[self addTile:tile WithImage:image At:screenLocation];
-            tilesPassed++;
         }
-        else {
-            tilesPassed++;
-            tilesEmpty++;
-        }
-    }
-    
-    if (tilesPassed == tilesNeeded && tilesEmpty) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:NO_TILE_IN_DB
-                                                            object:nil];
-        tilesEmpty = 0;
     }
 }
 
@@ -226,16 +205,6 @@
 		screenLocation.size.width = pixelsPerTile;
 		screenLocation.size.height = pixelsPerTile;
 		t.zoom = rect.origin.tile.zoom;
-
-        tilesNeeded = 0;
-        tilesPassed = 0;
-		for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
-		{
-			for (t.y = roundedRect.origin.tile.y; t.y < roundedRect.origin.tile.y + tileRegionHeight; t.y++)
-			{
-                tilesNeeded++;
-			}
-		}
 
         for (t.x = roundedRect.origin.tile.x; t.x < roundedRect.origin.tile.x + tileRegionWidth; t.x++)
 		{

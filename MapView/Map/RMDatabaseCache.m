@@ -39,7 +39,7 @@
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
     if ([DIHelper offlineMode]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_10_16" ofType:@"sqlite"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_119909_10_17" ofType:@"sqlite"];
         return path;
     }
     else {
@@ -63,7 +63,7 @@
             }
             
             /// \bug magic string literals
-            NSString *filename = @"spb_119909_10_17.sqlite";
+            NSString *filename = @"spb_119909_10_16.sqlite";
             //NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
             return [cachePath stringByAppendingPathComponent:filename];
         }

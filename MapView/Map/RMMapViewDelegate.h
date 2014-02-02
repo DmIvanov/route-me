@@ -41,6 +41,8 @@
 - (void) beforeMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
 - (void) afterMapZoom: (RMMapView*) map byFactor: (float) zoomFactor near:(CGPoint) center;
 
+- (CGSize)checkTilesAvailability:(CGSize)delta;
+
 /*
  \brief Tells the delegate that the region displayed by the map view just changed.
  \details This method is called whenever the currently displayed map region changes. 

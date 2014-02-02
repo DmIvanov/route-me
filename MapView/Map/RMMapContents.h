@@ -243,6 +243,8 @@ enum {
  */
 -(void)removeAllCachedImages;
 
+- (CGSize)isMovingAvailable:(CGRect)mapRect delta:(CGSize)delta;
+
 @end
 
 /// Appears to be the methods actually implemented by RMMapContents, but generally invoked on RMMapView, and forwarded to the contents object.
