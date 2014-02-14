@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "RMTile.h"
 
 @interface DIHelper : NSObject
@@ -23,6 +25,7 @@
 + (double)initialLatitude;
 + (double)initialLongitude;
 
--(CGPoint)isMovementAvailableToRect:(RMTileRect)rect toDisplayIn:(CGRect)bounds;
++ (CLLocationCoordinate2D)SWBorderPoint;
++ (CLLocationCoordinate2D)NEBorderPoint;
 
 @end
