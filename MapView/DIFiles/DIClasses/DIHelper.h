@@ -16,13 +16,15 @@
 + (BOOL)offlineMode;
 + (BOOL)deceleration;
 
-+ (double)maxZoom;
-+ (double)minZoom;
-+ (double)initialZoom;
++ (NSUInteger)maxZoom;
++ (NSUInteger)minZoom;
++ (NSUInteger)initialZoom;
 
 + (double)initialLatitude;
 + (double)initialLongitude;
 
--(CGPoint)isMovementAvailableToRect:(RMTileRect)rect toDisplayIn:(CGRect)bounds;
+//-(CGPoint)isMovementAvailableToRect:(RMTileRect)rect toDisplayIn:(CGRect)bounds;
+- (CGSize)viewSizeForZoom:(NSUInteger)zoom;
+- (CGPoint)contentOffsetForTileRect:(RMTileRect)tileRect;
 
 @end

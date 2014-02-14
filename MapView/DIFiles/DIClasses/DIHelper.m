@@ -8,13 +8,16 @@
 
 #import "DIHelper.h"
 
-//#define TILE_SIZE           256
+#define TILE_SIZE           256.
 
 
 @interface DIHelper()
 {
     NSDictionary *_dbDescription;
 }
+
+@property (nonatomic, strong) NSMutableDictionary *cachedSizes;
+
 @end
 
 
@@ -31,14 +34,14 @@
 
 
 #pragma mark - Zoom
-+ (double)maxZoom {
-    return 17.;
++ (NSUInteger)maxZoom {
+    return 17;
 }
-+ (double)minZoom {
-    return 10.;
++ (NSUInteger)minZoom {
+    return 10;
 }
-+ (double)initialZoom {
-    return 11.;
++ (NSUInteger)initialZoom {
+    return 14;
 }
 
 
@@ -66,78 +69,137 @@
     if (self) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"dbDescription" ofType:@"plist"];
         _dbDescription = [NSDictionary dictionaryWithContentsOfFile:path];
+        _cachedSizes = [NSMutableDictionary dictionary];
     }
     return self;
 }
 
-//checking if it possible to move by delta
--(CGPoint)isMovementAvailableToRect:(RMTileRect)rect toDisplayIn:(CGRect)bounds {
+////checking if it possible to move by delta
+//-(CGPoint)isMovementAvailableToRect:(RMTileRect)rect toDisplayIn:(CGRect)bounds {
+//    
+//    //all the code don't work without this copying
+//    NSDictionary *descr = [_dbDescription copy];
+//    
+//    NSUInteger zoom, x, y;
+//    CGPoint movingAvailability = CGPointZero;
+//    
+//    if (!_dbDescription)
+//        return movingAvailability;
+//    
+//	RMTileRect roundedRect = RMTileRectRound(rect);
+//	// The number of tiles we'll load in the vertical and horizontal directions
+//	int tileRegionWidth = (int)roundedRect.size.width;
+//	int tileRegionHeight = (int)roundedRect.size.height;
+//    
+//    zoom = rect.origin.tile.zoom;
+//    NSString *key = [NSString stringWithFormat:@"%@", @(zoom)];
+//    NSArray *zoomArray = descr[key];
+//    
+//    if (!zoomArray)
+//        return movingAvailability;
+//    
+//    movingAvailability.x = 1.;
+//    for (x = roundedRect.origin.tile.x; x < roundedRect.origin.tile.x + tileRegionWidth; x++) {
+//        //NSLog(@"checking x - %@", @(x));
+//        NSUInteger index = [zoomArray indexOfObjectPassingTest:^BOOL(NSDictionary *xDict, NSUInteger idx, BOOL *stop) {
+//            //NSLog(@"xDict key - %@", xDict.allKeys[0]);
+//            return [xDict.allKeys[0] isEqualToString:[NSString stringWithFormat:@"%@", @(x)]];
+//        }];
+//        if (index == NSNotFound) {
+//            movingAvailability.x = 0.;
+//            //NSLog(@"movingAvailability.x = 0. [%@]", NSStringFromCGPoint(movingAvailability));
+//            break;
+//        }
+//    }
+//    
+//    movingAvailability.y = 1.;
+//    for (NSDictionary *xDict in zoomArray) {
+//        NSArray *yArray = xDict[xDict.allKeys[0]];
+//        //NSLog(@"yArray - %@", yArray);
+//        for (y = roundedRect.origin.tile.y; y < roundedRect.origin.tile.y + tileRegionHeight; y++) {
+//            //NSLog(@"checking y - %@", @(y));
+//            NSUInteger index = [yArray indexOfObjectPassingTest:^BOOL(NSNumber *yN, NSUInteger idx, BOOL *stop) {
+//                return [yN isEqualToNumber:@(y)];
+//            }];
+//            if (index == NSNotFound) {
+//                movingAvailability.y = 0.;
+//                //NSLog(@"movingAvailability.y = 0. [%@]", NSStringFromCGPoint(movingAvailability));
+//                break;
+//            }
+//        }
+//    }
+//    //NSLog(NSStringFromCGPoint(movingAvailability));
+//    return movingAvailability;
+//}
+
+- (CGSize)viewSizeForZoom:(NSUInteger)zoom {
+
+    //checking cashe
+    CGSize size = [self sizeFromCaсheForZoom:zoom];
+    if (!CGSizeEqualToSize(size, CGSizeZero))
+        return size;
     
-    //all the code don't work without this copying
-    NSDictionary *descr = [_dbDescription copy];
-    
-    NSUInteger zoom, x, y;
-    CGPoint movingAvailability = CGPointZero;
-    
-    if (!_dbDescription)
-        return movingAvailability;
-    
-	RMTileRect roundedRect = RMTileRectRound(rect);
-	// The number of tiles we'll load in the vertical and horizontal directions
-	int tileRegionWidth = (int)roundedRect.size.width;
-	int tileRegionHeight = (int)roundedRect.size.height;
-    
-    zoom = rect.origin.tile.zoom;
-    NSString *key = [NSString stringWithFormat:@"%@", @(zoom)];
-    NSArray *zoomArray = descr[key];
-    
-    if (!zoomArray)
-        return movingAvailability;
-    
-    movingAvailability.x = 1.;
-    for (x = roundedRect.origin.tile.x; x < roundedRect.origin.tile.x + tileRegionWidth; x++) {
-        //NSLog(@"checking x - %@", @(x));
-        NSUInteger index = [zoomArray indexOfObjectPassingTest:^BOOL(NSDictionary *xDict, NSUInteger idx, BOOL *stop) {
-            //NSLog(@"xDict key - %@", xDict.allKeys[0]);
-            return [xDict.allKeys[0] isEqualToString:[NSString stringWithFormat:@"%@", @(x)]];
-        }];
-        if (index == NSNotFound) {
-            movingAvailability.x = 0.;
-            //NSLog(@"movingAvailability.x = 0. [%@]", NSStringFromCGPoint(movingAvailability));
-            break;
+    if (_dbDescription) {
+        NSArray *zoomArray = _dbDescription[[NSString stringWithFormat:@"%@", @(zoom)]];
+        CGFloat width = zoomArray.count * TILE_SIZE;
+        if (zoomArray && zoomArray.count) {
+            NSDictionary *xDict = zoomArray[0];
+            NSArray *yArray = xDict[xDict.allKeys[0]];
+            CGFloat height = yArray.count * TILE_SIZE;
+            size = CGSizeMake(width, height);
+            [self addSizeToCaсhe:size forZoom:zoom];
+            return size;
         }
     }
+    return CGSizeZero;
+}
+
+- (CGPoint)contentOffsetForTileRect:(RMTileRect)tileRect {
     
-    movingAvailability.y = 1.;
-    for (NSDictionary *xDict in zoomArray) {
-        NSArray *yArray = xDict[xDict.allKeys[0]];
-        //NSLog(@"yArray - %@", yArray);
-        for (y = roundedRect.origin.tile.y; y < roundedRect.origin.tile.y + tileRegionHeight; y++) {
-            //NSLog(@"checking y - %@", @(y));
+    NSString *zoomString = [NSString stringWithFormat:@"%@", @(tileRect.origin.tile.zoom)];
+    NSString *xString    = [NSString stringWithFormat:@"%@", @(tileRect.origin.tile.x)];
+    NSNumber *yNumb      = @(tileRect.origin.tile.y);
+    
+    CGPoint point = CGPointZero;
+    
+    if (_dbDescription) {
+        NSArray *zoomArray = _dbDescription[zoomString];
+        
+        NSUInteger index = [zoomArray indexOfObjectPassingTest:^BOOL(NSDictionary *xDict, NSUInteger idx, BOOL *stop) {
+            return [xDict.allKeys[0] isEqualToString:xString];
+        }];
+        if (index != NSNotFound) {
+            CGFloat xPoint = (index-1)*TILE_SIZE - tileRect.origin.offset.x;
+            point.x = xPoint;
+            NSDictionary *xDict = zoomArray[index];
+            NSArray *yArray = xDict[xString];
             NSUInteger index = [yArray indexOfObjectPassingTest:^BOOL(NSNumber *yN, NSUInteger idx, BOOL *stop) {
-                return [yN isEqualToNumber:@(y)];
+                return [yN isEqualToNumber:yNumb];
             }];
-            if (index == NSNotFound) {
-                movingAvailability.y = 0.;
-                //NSLog(@"movingAvailability.y = 0. [%@]", NSStringFromCGPoint(movingAvailability));
-                break;
+            if (index != NSNotFound) {
+                CGFloat yPoint = (index-1)*TILE_SIZE - tileRect.origin.offset.y;
+                point.y = yPoint;
             }
         }
     }
-    //NSLog(NSStringFromCGPoint(movingAvailability));
-    return movingAvailability;
+    
+    return point;
 }
-//- (CGSize)viewSizeForZoom:(NSInteger)zoom {
-//    if (_dbDescription) {
-//        NSArray *zoomArray = _dbDescription[[NSString stringWithFormat:@"%@", @(zoom)]];
-//        CGFloat width = zoomArray.count * TILE_SIZE;
-//        if (zoomArray && zoomArray.count) {
-//            NSDictionary *xDict = zoomArray[0];
-//            NSArray *yArray = xDict[xDict.allKeys[0]];
-//            CGFloat height = yArray.count * TILE_SIZE;
-//            CGSize size = CGSizeMake(width, height);
-//        }
-//    }
-//}
+
+- (void)addSizeToCaсhe:(CGSize)size forZoom:(NSUInteger)zoom {
+    
+    [_cachedSizes setValue:@[@(size.width), @(size.height)]
+                    forKey:[NSString stringWithFormat:@"%@", @(zoom)]];
+}
+
+- (CGSize)sizeFromCaсheForZoom:(NSUInteger)zoom {
+    
+    NSArray *sizeArray = _cachedSizes[[NSString stringWithFormat:@"%@", @(zoom)]];
+    if (!sizeArray || sizeArray.count < 2)
+        return CGSizeZero;
+    else {
+        return CGSizeMake([sizeArray[0] doubleValue], [sizeArray[1] doubleValue]);
+    }
+}
 
 @end

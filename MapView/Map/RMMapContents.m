@@ -48,6 +48,7 @@
 #import "RMMarker.h"
 
 #import "DIHelper.h"
+#import "DIDefaults.h"
 
 
 @interface RMMapContents (PrivateMethods)
@@ -144,8 +145,8 @@
 	if (![super init])
 		return nil;
 
-	NSAssert1([newView isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", newView);
-	[(RMMapView *)newView setContents:self];
+	//NSAssert1([newView isKindOfClass:[RMMapView class]], @"view %@ must be a subclass of RMMapView", newView);
+	//[(RMMapView *)newView setContents:self];
 
 	tileSource = nil;
 	projection = nil;
@@ -158,7 +159,7 @@
 
 	boundingMask = RMMapMinWidthBound;
 
-	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:[newView bounds]];
+	mercatorToScreenProjection = [[RMMercatorToScreenProjection alloc] initFromProjection:[newTilesource projection] ToScreenBounds:SCREEN_RECT];
 	
 	layer = [[newView layer] retain];
 
@@ -355,36 +356,36 @@
 	[renderer setNeedsDisplay];
 }
 
-//DI-function
-- (CGSize)isMovingAvailable:(CGRect)mapRect delta:(CGSize)delta {
-    
-    CGSize localDelta;
-    localDelta.width = -delta.width;
-	localDelta.height = -delta.height;
-    
-	RMProjectedPoint newOrigin = [mercatorToScreenProjection movePoint:mercatorToScreenProjection.origin by:localDelta];
-
-    RMProjectedRect aRect;
-	aRect.origin = newOrigin;
-	aRect.size.width = mapRect.size.width * mercatorToScreenProjection.metersPerPixel;
-	aRect.size.height = mapRect.size.height * mercatorToScreenProjection.metersPerPixel;
-    //NSLog(@"aRect: orig[%f %f], size[%f %f]", aRect.origin.easting, aRect.origin.northing, aRect.size.height, aRect.size.width);
-    RMTileRect newTileRect = [mercatorToTileProjection projectRect:aRect
-                                                           atScale:[self scaledMetersPerPixel]];
-	CGPoint availability = [[DIHelper sharedInstance] isMovementAvailableToRect:newTileRect toDisplayIn:mapRect];
-    
-    if (availability.x == 0.)
-        delta.width = 0.;
-    
-    if (availability.y == 0.)
-        delta.height = 0;
-    //RMTile tile = newTileRect.origin.tile;
-    //NSLog(@"==== z = %@, x = %@, y = %@", @(tile.zoom), @(tile.x), @(tile.y));
-    //BOOL isAvailable = [[DIHelper sharedInstance] tileIsAvailable:tile];
-    //NSLog(@"available - %@", NSStringFromCGPoint(availability));
-    
-    return delta;
-}
+////DI-function
+//- (CGSize)isMovingAvailable:(CGRect)mapRect delta:(CGSize)delta {
+//    
+//    CGSize localDelta;
+//    localDelta.width = -delta.width;
+//	localDelta.height = -delta.height;
+//    
+//	RMProjectedPoint newOrigin = [mercatorToScreenProjection movePoint:mercatorToScreenProjection.origin by:localDelta];
+//
+//    RMProjectedRect aRect;
+//	aRect.origin = newOrigin;
+//	aRect.size.width = mapRect.size.width * mercatorToScreenProjection.metersPerPixel;
+//	aRect.size.height = mapRect.size.height * mercatorToScreenProjection.metersPerPixel;
+//    //NSLog(@"aRect: orig[%f %f], size[%f %f]", aRect.origin.easting, aRect.origin.northing, aRect.size.height, aRect.size.width);
+//    RMTileRect newTileRect = [mercatorToTileProjection projectRect:aRect
+//                                                           atScale:[self scaledMetersPerPixel]];
+//	CGPoint availability = [[DIHelper sharedInstance] isMovementAvailableToRect:newTileRect toDisplayIn:mapRect];
+//    
+//    if (availability.x == 0.)
+//        delta.width = 0.;
+//    
+//    if (availability.y == 0.)
+//        delta.height = 0;
+//    //RMTile tile = newTileRect.origin.tile;
+//    //NSLog(@"==== z = %@, x = %@, y = %@", @(tile.zoom), @(tile.x), @(tile.y));
+//    //BOOL isAvailable = [[DIHelper sharedInstance] tileIsAvailable:tile];
+//    //NSLog(@"available - %@", NSStringFromCGPoint(availability));
+//    
+//    return delta;
+//}
 
 /// \bug doesn't really adjust anything, just makes a computation. CLANG flags some dead assignments (write-only variables)
 - (float)adjustZoomForBoundingMask:(float)zoomFactor

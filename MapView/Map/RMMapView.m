@@ -300,14 +300,15 @@
         }
 	}
 
-    if ([delegate respondsToSelector:@selector(checkTilesAvailability:)])
-        delta = [delegate checkTilesAvailability:delta];
-    if (CGSizeEqualToSize(delta, CGSizeZero))
-        return;
-     
+#warning TODO
+//    if ([delegate respondsToSelector:@selector(checkTilesAvailability:)])
+//        delta = [delegate checkTilesAvailability:delta];
+//    if (CGSizeEqualToSize(delta, CGSizeZero))
+//        return;
+    
 	if (_delegateHasBeforeMapMove)
         [delegate beforeMapMove: self];
-    
+
 	[self.contents moveBy:delta];
     
 	if (_delegateHasAfterMapMove)
@@ -503,7 +504,12 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-	UITouch *touch = [[touches allObjects] objectAtIndex:0];
+    //[self aTouchesBegan:touches withEvent:event];
+}
+
+- (void)aTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	//Check if the touch hit a RMMarker subclass and if so, forward the touch event on
 	//so it can be handled there
 	id furthestLayerDown = [self.contents.overlay hitTest:[touch locationInView:self]];
@@ -513,7 +519,7 @@
 			return;
 		}
 	}
-		
+    
 	if (lastGesture.numTouches == 0)
 	{
 		[RMMapContents setPerformExpensiveOperations:NO];
@@ -521,7 +527,7 @@
 	
 	//	RMLog(@"touchesBegan %d", [[event allTouches] count]);
 	lastGesture = [self gestureDetails:[event allTouches]];
-
+    
 	if(deceleration)
 	{
 		if (_decelerationTimer != nil) {
@@ -530,10 +536,16 @@
 	}
 	
 	[self delayedResumeExpensiveOperations];
+
 }
 
 /// \bug touchesCancelled should clean up, not pass event to markers
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    //[self aTouchesCancelled:touches withEvent:event];
+}
+
+- (void)aTouchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	
@@ -550,7 +562,12 @@
 	[self delayedResumeExpensiveOperations];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    //[self aTouchesEnded:touches withEvent:event];
+}
+
+- (void)aTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	
@@ -644,7 +661,12 @@
 	if (_delegateHasAfterMapTouch) [delegate afterMapTouch: self];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    //[self aTouchesMoved:touches withEvent:event];
+}
+
+- (void)aTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [[touches allObjects] objectAtIndex:0];
 	
