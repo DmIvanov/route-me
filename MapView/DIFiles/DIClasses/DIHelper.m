@@ -38,7 +38,7 @@
     return 10.;
 }
 + (double)initialZoom {
-    return 11.;
+    return 14.;
 }
 
 
