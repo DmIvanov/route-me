@@ -57,6 +57,7 @@
 - (BOOL) isMarker:(RMMarker*)marker withinBounds:(CGRect)rect;
 - (BOOL) managingMarker:(RMMarker*)marker;
 - (void) moveMarker:(RMMarker *)marker AtLatLon:(RMLatLong)point;
+- (void) moveMarkerWithAnimation:(RMMarker *)marker AtLatLon:(RMLatLong)point;
 - (void) moveMarker:(RMMarker *)marker AtXY:(CGPoint)point;
 - (void)setRotation:(float)angle;
 

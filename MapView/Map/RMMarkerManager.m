@@ -181,6 +181,18 @@
 	[marker setPosition:[[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]]];
 }
 
+- (void) moveMarkerWithAnimation:(RMMarker *)marker AtLatLon:(RMLatLong)point
+{
+	[marker setProjectedLocation:[[contents projection]latLongToPoint:point]];
+    
+    CGPoint aPoint = [[contents mercatorToScreenProjection] projectXYPoint:[[contents projection] latLongToPoint:point]];
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    animation.fromValue = [marker valueForKey:@"position"];
+    animation.toValue = [NSValue valueWithCGPoint:aPoint];
+    marker.position = aPoint;
+    [marker addAnimation:animation forKey:@"position"];
+}
+
 - (void) moveMarker:(RMMarker *)marker AtXY:(CGPoint)point
 {
 	[marker setProjectedLocation:[[contents mercatorToScreenProjection] projectScreenPointToXY:point]];
