@@ -17,6 +17,9 @@
 
 + (BOOL)offlineMode;
 + (BOOL)deceleration;
++ (BOOL)uploadingTilesToFileSystem;
++ (BOOL)downloadingTilesFromFileSystem;
++ (BOOL)cacheBaseCleaning;
 
 + (double)maxZoom;
 + (double)minZoom;
@@ -27,5 +30,8 @@
 
 + (CLLocationCoordinate2D)SWBorderPoint;
 + (CLLocationCoordinate2D)NEBorderPoint;
+
+- (void)addImageToFolder:(NSData *)imageData forTile:(RMTile)tile;
+- (void)downloadTilesToDBFromFolder;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DIHelper.h"
+#import "RMTileImage.h"
 
 //#define TILE_SIZE           256
 
@@ -23,16 +24,30 @@
 
 #pragma mark - Offline Mode
 + (BOOL)offlineMode {
-    return YES;
+    return YES; //tiles only from cache database
+//    return NO;  //tiles downloading from server is available
 }
 + (BOOL)deceleration {
-    return NO;
+    return NO;  //map deceleration turned off
+//    return YES;  //map deceleration turned on
+}
++ (BOOL)uploadingTilesToFileSystem {
+//    return YES; //writing tiles to file system in Documets folder
+    return NO;  //writiting to cache database
+}
++(BOOL)downloadingTilesFromFileSystem {
+    return YES; //reading tiles from Documets folder
+//    return NO;  //reading from remote source
+}
++ (BOOL)cacheBaseCleaning {
+    return NO;  //no limits
+//    return YES; //deleting tiles from cache database (capacity <= tilesInDb)
 }
 
 
 #pragma mark - Zoom
 + (double)maxZoom {
-    return 17.;
+    return 18.;
 }
 + (double)minZoom {
     return 10.;
@@ -70,6 +85,7 @@
     });
     return sharedInstance;
 }
+
 - (id)init {
     
     self = [super init];
@@ -92,5 +108,67 @@
 //        }
 //    }
 //}
+
+- (NSString *)pathForTilesFolder {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths.firstObject; // Get documents folder
+    NSString *tilesFolderPath = [documentsDirectory stringByAppendingPathComponent:@"/Tiles"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:tilesFolderPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:tilesFolderPath withIntermediateDirectories:NO attributes:nil error:nil];
+    
+    return tilesFolderPath;
+}
+
+- (NSString *)pathForTile:(RMTile)tile {
+    
+    NSString *addition = [NSString stringWithFormat:@"/%@_%@_%@.png", @(tile.zoom), @(tile.x), @(tile.y)];
+    NSString *path = [[self pathForTilesFolder] stringByAppendingPathComponent:addition];
+
+    return path;
+}
+
+- (void)addImageToFolder:(NSData *)imageData forTile:(RMTile)tile {
+ 
+    NSString *path = [self pathForTile:tile];
+    [imageData writeToFile:path atomically:YES];
+}
+
+- (void)downloadTilesToDBFromFolder {
+    
+    NSArray *directoryContent = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[self pathForTilesFolder] error:nil];
+    for (int count = 0; count < (int)[directoryContent count]; count++)
+    {
+        NSString *fileName = directoryContent[count];
+        NSString *filePath = [[self pathForTilesFolder] stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@", fileName]];
+        NSData *imageData = [NSData dataWithContentsOfFile:filePath];
+        
+        fileName = [fileName componentsSeparatedByString:@"."][0];
+        RMTile tile = TileFromPath(fileName);
+        RMTileImage *tileImage = [[RMTileImage alloc] initWithTile:tile];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:RMMapImageLoadedNotification
+                                                            object:tileImage
+                                                          userInfo:@{@"data" : imageData}];
+    }
+}
+
+RMTile TileFromPath(NSString *path) {
+    
+    NSArray *components = [path componentsSeparatedByString:@"_"];
+    if (components.count < 3)
+        return RMTileDummy();
+    
+    RMTile tile;
+    NSString *comp = components[0];
+    tile.zoom = [comp integerValue];
+    comp = components[1];
+    tile.x = [comp integerValue];
+    comp = components[2];
+    tile.y = [comp integerValue];
+    
+    return tile;
+}
 
 @end

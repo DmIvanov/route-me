@@ -39,7 +39,8 @@
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
     if ([DIHelper offlineMode]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_119909_10_17" ofType:@"sqlite"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_119909_10_18" ofType:@"sqlite"];
+        RMLog(@"%@", path);
         return path;
     }
     else {
@@ -63,7 +64,7 @@
             }
             
             /// \bug magic string literals
-            NSString *filename = @"spb_119909_10_17.sqlite";
+            NSString *filename = @"spb_119909_10_18.sqlite";
             //NSString *filename = [NSString stringWithFormat:@"Map%@.sqlite", [source uniqueTilecacheKey]];
             return [cachePath stringByAppendingPathComponent:filename];
         }
@@ -82,6 +83,9 @@
 
 	if (dao == nil)
 		return nil;
+    
+    if ([DIHelper downloadingTilesFromFileSystem])
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImageData:) name:RMMapImageLoadedNotification object:nil];
 	
 	return self;	
 }
@@ -134,15 +138,21 @@
 	
 	@synchronized (self) {
 
-//		if (capacity != 0) {
-//			NSUInteger tilesInDb = [dao count];
-//			if (capacity <= tilesInDb) {
-//				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
-//			}
-//		}
-        NSDate *lastUsedTime = [[image lastUsedTime] retain];
-		[dao addData:data LastUsed: lastUsedTime ForTile:RMTileKey([image tile])];
-        [lastUsedTime release]; lastUsedTime = nil;
+		if (capacity != 0 && [DIHelper cacheBaseCleaning]) {
+			NSUInteger tilesInDb = [dao count];
+			if (capacity <= tilesInDb) {
+				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
+			}
+		}
+        
+        if ([DIHelper uploadingTilesToFileSystem]) {
+            [[DIHelper sharedInstance] addImageToFolder:data forTile:[image tile]];
+        }
+        else {
+            NSDate *lastUsedTime = [[image lastUsedTime] retain];
+            [self addImageData:data forTile:[image tile] lastUsed:lastUsedTime];
+            [lastUsedTime release]; lastUsedTime = nil;
+        }
 	}
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self
@@ -153,6 +163,11 @@
     size += (float)data.length/1024.0f/1024.0f;
 	RMLog(@"%2.d items in DB (zoom = %2.d xTile = %5.d yTile = %5.d)", [dao count], image.tile.zoom, image.tile.x, image.tile.y);
     RMLog(@"database size in MB: %.3f", size);
+}
+
+- (void)addImageData:(NSData *)imageData forTile:(RMTile)tile lastUsed:(NSDate *)lastUsedTime {
+    
+    [dao addData:imageData LastUsed:lastUsedTime ForTile:RMTileKey(tile)];
 }
 
 -(RMTileImage*) cachedImage:(RMTile)tile

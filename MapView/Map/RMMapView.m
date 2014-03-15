@@ -300,11 +300,6 @@
         }
 	}
 
-//    if ([delegate respondsToSelector:@selector(checkTilesAvailability:)])
-//        delta = [delegate checkTilesAvailability:delta];
-//    if (CGSizeEqualToSize(delta, CGSizeZero))
-//        return;
-    NSLog(NSStringFromCGSize(delta));
 	if (_delegateHasBeforeMapMove)
         [delegate beforeMapMove: self];
     
