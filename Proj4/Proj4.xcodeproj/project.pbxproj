@@ -159,6 +159,7 @@
 		B87056970E67C32200CC2ED1 /* vector1.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055F90E67C32200CC2ED1 /* vector1.c */; };
 		B87056980E67C39700CC2ED1 /* nad_intr.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055720E67C32200CC2ED1 /* nad_intr.c */; };
 		B87056990E67C39800CC2ED1 /* nad_init.c in Sources */ = {isa = PBXBuildFile; fileRef = B87055710E67C32200CC2ED1 /* nad_init.c */; };
+		C47566B718E865530026C0A1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C47566B618E865530026C0A1 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -328,6 +329,7 @@
 		B87055F70E67C32200CC2ED1 /* projects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = projects.h; sourceTree = "<group>"; };
 		B87055F80E67C32200CC2ED1 /* rtodms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rtodms.c; sourceTree = "<group>"; };
 		B87055F90E67C32200CC2ED1 /* vector1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vector1.c; sourceTree = "<group>"; };
+		C47566B618E865530026C0A1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libProj4.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libProj4.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E8BE07B2D77200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
@@ -337,6 +339,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C47566B718E865530026C0A1 /* libsqlite3.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +357,7 @@
 		0867D691FE84028FC02AAC07 /* Proj4 */ = {
 			isa = PBXGroup;
 			children = (
+				C47566B618E865530026C0A1 /* libsqlite3.dylib */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,

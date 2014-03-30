@@ -73,8 +73,8 @@ NSString * const RMCloudMadeAccessTokenRequestFailed = @"RMCloudMadeAccessTokenR
 	if([self readTokenFromFile])
 			return;
 	
-	NSString* url = [NSString stringWithFormat:@"%@/token/%@?userid=%u",CMTokenAuthorizationServer,accessKey,
-					[[UIDevice currentDevice].identifierForVendor hash]];
+	NSString* url = [NSString stringWithFormat:@"%@/token/%@?userid=%@",CMTokenAuthorizationServer,accessKey,
+					@([[UIDevice currentDevice].identifierForVendor hash])];
 
 	
 	NSData* data = nil;
@@ -102,7 +102,7 @@ NSString * const RMCloudMadeAccessTokenRequestFailed = @"RMCloudMadeAccessTokenR
 		{
 			if([(NSHTTPURLResponse*)response statusCode] == 403 && !attempt)
 			{
-				RMLog(@"Token wasn't obtained.Response code = %d\n",[(NSHTTPURLResponse*)response statusCode]);
+				RMLog(@"Token wasn't obtained.Response code = %@\n",@([(NSHTTPURLResponse*)response statusCode]));
 				attempt++;
 			}
 			else
@@ -148,20 +148,20 @@ NSString * const RMCloudMadeAccessTokenRequestFailed = @"RMCloudMadeAccessTokenR
 			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
 			  self, tile.zoom, self.minZoom, self.maxZoom);
 	NSAssert(accessToken,@"CloudMade access token must be non-empty");
-	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%d@2x/%d/%d/%d/%d.png?token=%@",
+	return [NSString stringWithFormat:@"http://tile.cloudmade.com/%@/%@@2x/%@/%@/%@/%@.png?token=%@",
 			accessKey,
-			cloudmadeStyleNumber,
-			kDefaultCloudMadeSize, tile.zoom, tile.x, tile.y,accessToken];
+			@(cloudmadeStyleNumber),
+			@(kDefaultCloudMadeSize), @(tile.zoom), @(tile.x), @(tile.y), accessToken];
 }
 
 -(NSString*) uniqueTilecacheKey
 {
-	return [NSString stringWithFormat:@"CloudMadeMaps%d", cloudmadeStyleNumber];
+	return [NSString stringWithFormat:@"CloudMadeMaps%@", @(cloudmadeStyleNumber)];
 }
 
 -(NSString *)shortName
 {
-	return [NSString stringWithFormat:@"Cloud Made %d", cloudmadeStyleNumber];
+	return [NSString stringWithFormat:@"Cloud Made %@", @(cloudmadeStyleNumber)];
 }
 -(NSString *)longDescription
 {

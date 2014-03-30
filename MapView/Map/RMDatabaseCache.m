@@ -161,7 +161,7 @@
 	
 	static double size = .0;
     size += (float)data.length/1024.0f/1024.0f;
-	RMLog(@"%2.d items in DB (zoom = %2.d xTile = %5.d yTile = %5.d)", [dao count], image.tile.zoom, image.tile.x, image.tile.y);
+	RMLog(@"%2lu items in DB (zoom = %2.d xTile = %5.d yTile = %5.d)", (unsigned long)[dao count], image.tile.zoom, image.tile.x, image.tile.y);
     RMLog(@"database size in MB: %.3f", size);
 }
 

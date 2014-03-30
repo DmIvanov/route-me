@@ -48,8 +48,8 @@
 	NSInteger shift = tile.zoom -1;
 	NSInteger x = tile.x;
 	NSInteger y = pow(2,shift)-1-tile.y;
-	NSString *tileThing = [NSString stringWithFormat:@"http://us.maps2.yimg.com/us.png.maps.yimg.com/png?v=3.1.0&t=m&x=%d&y=%d&z=%d",
-						   x, y,zoom];
+	NSString *tileThing = [NSString stringWithFormat:@"http://us.maps2.yimg.com/us.png.maps.yimg.com/png?v=3.1.0&t=m&x=%ld&y=%ld&z=%ld",
+						   (long)x, (long)y,(long)zoom];
 	NSLog(@"%@",tileThing);
 	return tileThing;
 	

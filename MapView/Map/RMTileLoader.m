@@ -95,6 +95,7 @@
 	}
 	
     //RMLog(@"%d %d", contained, targetZoom == loadedZoom);
+    RMLog(@"target - %@, loaded - %@", @(targetZoom), @(loadedZoom));
 	return contained && targetZoom == loadedZoom;
 }
 
@@ -119,7 +120,7 @@
 													 name:RMResumeExpensiveOperations object:nil];
         return;
 	}
-	
+
 	if ([self screenIsLoaded])
 		return;
 	

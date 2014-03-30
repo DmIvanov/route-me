@@ -159,7 +159,7 @@ static NSOperationQueue *_queue = nil;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    int statusCode = NSURLErrorUnknown; // unknown
+    NSInteger statusCode = NSURLErrorUnknown; // unknown
     
 	if ([response isKindOfClass:[NSHTTPURLResponse class]])
         statusCode = [(NSHTTPURLResponse*)response statusCode];
@@ -197,7 +197,7 @@ static NSOperationQueue *_queue = nil;
         NSError *error = [NSError errorWithDomain:RMWebTileImageErrorDomain 
                                              code:RMWebTileImageErrorUnexpectedHTTPResponse 
                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                   [NSNumber numberWithInt:statusCode], RMWebTileImageHTTPResponseCodeKey,
+                                                   @(statusCode), RMWebTileImageHTTPResponseCodeKey,
                                                    [NSString stringWithFormat:NSLocalizedString(@"The server returned error code %d", @""), statusCode], NSLocalizedDescriptionKey, nil]];
         
 		if (retry) {

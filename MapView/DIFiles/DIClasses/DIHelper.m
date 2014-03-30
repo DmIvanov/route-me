@@ -171,4 +171,10 @@ RMTile TileFromPath(NSString *path) {
     return tile;
 }
 
+
+- (BOOL)roundingCeil {
+    
+    return _mapRoundingCeil;
+}
+
 @end

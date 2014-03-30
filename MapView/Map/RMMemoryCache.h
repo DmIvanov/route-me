@@ -31,8 +31,7 @@
 
 @interface RMMemoryCache : NSObject<RMTileCache> {
 	NSMutableDictionary *cache;
-
-	int capacity;
+	NSInteger capacity;
 }
 
 -(id)initWithCapacity: (NSUInteger) _capacity;

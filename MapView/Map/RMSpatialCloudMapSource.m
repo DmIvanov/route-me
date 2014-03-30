@@ -82,24 +82,24 @@
 
 - (NSString *)tileURL:(RMTile)tile {
 	NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
-			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
-			  self, tile.zoom, self.minZoom, self.maxZoom);
+			  @"%@ tried to retrieve tile with zoomLevel %@, outside source's defined range %f to %f",
+			  self, @(tile.zoom), self.minZoom, self.maxZoom);
 	NSAssert(([self.loginID length] > 0) || ([self.customServerURL length] > 0),
 			 @"Login ID or Custom Server URL for Spatial Cloud must be non-empty");
 	NSAssert(([self.password length] > 0) || ([self.customServerURL length] > 0),
 			 @"Password or Custom Server URL for Spatial Cloud must be non-empty");
 	
 	// Flip the y-coordinate from the default route-me scheme to the Spatial Cloud tile scheme
-	uint32_t flippedYCoordinate = (1 << tile.zoom) - 1 - tile.y;
+	NSUInteger flippedYCoordinate = (1 << tile.zoom) - 1 - tile.y;
 	
 	NSString* fullURL = nil;
 	if ([self.customServerURL length] > 0) {
-		fullURL = [NSString stringWithFormat:@"%@%d/%d/%d.jpg",
-				   customServerURL, tile.zoom, tile.x, flippedYCoordinate];
+		fullURL = [NSString stringWithFormat:@"%@%ld/%lu/%lu.jpg",
+				   customServerURL, (long)tile.zoom, (unsigned long)tile.x, (unsigned long)flippedYCoordinate];
 	} else {
 		NSString *serverURL = @"http://ss.spatialcloud.com/getsign.cfm";
-		NSString *fileKey = [NSString stringWithFormat:@"%d/%d/%d.jpg",
-							 tile.zoom, tile.x, flippedYCoordinate];
+		NSString *fileKey = [NSString stringWithFormat:@"%ld/%lu/%lu.jpg",
+							 (long)tile.zoom, (unsigned long)tile.x, (unsigned long)flippedYCoordinate];
 		
 		NSString *authSign = [NSString stringWithFormat:@"%@%@%@",
 							  fileKey, self.loginID, self.password];

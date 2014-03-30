@@ -69,7 +69,7 @@
 	[super dealloc];
 }
 
-- (int)tileSideLength
+- (NSInteger)tileSideLength
 {
 	return tileProjection.tileSideLength;
 }
@@ -82,8 +82,8 @@
 - (RMTileImage *)tileImage:(RMTile)tile
 {
     NSAssert4(((tile.zoom >= self.minZoom) && (tile.zoom <= self.maxZoom)),
-			  @"%@ tried to retrieve tile with zoomLevel %d, outside source's defined range %f to %f", 
-			  self, tile.zoom, self.minZoom, self.maxZoom);
+			  @"%@ tried to retrieve tile with zoomLevel %@, outside source's defined range %f to %f",
+			  self, @(tile.zoom), self.minZoom, self.maxZoom);
 
     NSInteger zoom = tile.zoom;
     NSInteger x    = tile.x;

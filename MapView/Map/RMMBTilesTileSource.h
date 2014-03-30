@@ -60,7 +60,7 @@ typedef enum {
 }
 
 - (id)initWithTileSetURL:(NSURL *)tileSetURL;
-- (int)tileSideLength;
+- (NSInteger)tileSideLength;
 - (void)setTileSideLength:(NSUInteger)aTileSideLength;
 - (RMTileImage *)tileImage:(RMTile)tile;
 - (NSString *)tileURL:(RMTile)tile;

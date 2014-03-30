@@ -69,7 +69,7 @@
 	[super dealloc];
 }
 
--(int)tileSideLength
+-(NSInteger)tileSideLength
 {
 	return tileProjection.tileSideLength;
 }

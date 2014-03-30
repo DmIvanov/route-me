@@ -30,6 +30,8 @@
 #import "RMProjection.h"
 #import <math.h>
 
+#import "DIHelper.h"
+
 @implementation RMFractalTileProjection
 
 @synthesize maxZoom, minZoom;
@@ -80,8 +82,11 @@
 
 - (float) normaliseZoom: (float) zoom
 {
-	float normalised_zoom = roundf(zoom);
-
+    BOOL ceilRounding = [[DIHelper sharedInstance] roundingCeil];
+    RMLog(@"ceil - %@", @(ceilRounding));
+	//float normalised_zoom = roundf(zoom);
+    float normalised_zoom = ceilRounding ? ceil(zoom) : roundf(zoom);
+    
 	if (normalised_zoom > maxZoom)
 		normalised_zoom = maxZoom;
 	if (normalised_zoom < minZoom)
@@ -190,6 +195,7 @@
 
 -(float) calculateNormalisedZoomFromScale: (float) scale
 {
+    RMLog(@"scale - %@, calcZoom - %@, return - %@", @(scale), @([self calculateZoomFromScale:scale]), @([self normaliseZoom:[self calculateZoomFromScale:scale]]));
 	return [self normaliseZoom:[self calculateZoomFromScale:scale]];
 }
 

@@ -13,6 +13,8 @@
 
 @interface DIHelper : NSObject
 
+@property (nonatomic) BOOL mapRoundingCeil;
+
 + (instancetype)sharedInstance;
 
 + (BOOL)offlineMode;
@@ -33,5 +35,7 @@
 
 - (void)addImageToFolder:(NSData *)imageData forTile:(RMTile)tile;
 - (void)downloadTilesToDBFromFolder;
+
+- (BOOL)roundingCeil;
 
 @end
