@@ -24,8 +24,8 @@
 
 #pragma mark - Offline Mode
 + (BOOL)offlineMode {
-    return YES; //tiles only from cache database
-//    return NO;  //tiles downloading from server is available
+//    return YES; //tiles only from cache database
+    return NO;  //tiles downloading from server is available
 }
 + (BOOL)deceleration {
     return NO;  //map deceleration turned off
@@ -36,8 +36,8 @@
     return NO;  //writiting to cache database
 }
 +(BOOL)downloadingTilesFromFileSystem {
-    return YES; //reading tiles from Documets folder
-//    return NO;  //reading from remote source
+//    return YES; //reading tiles from Documets folder
+    return NO;  //reading from remote source
 }
 + (BOOL)cacheBaseCleaning {
     return NO;  //no limits

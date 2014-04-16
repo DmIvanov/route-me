@@ -93,9 +93,7 @@
 	{
 		//		RMLog(@"reassembling because target zoom = %f, loaded zoom = %d", targetZoom, loadedZoom);
 	}
-	
-    //RMLog(@"%d %d", contained, targetZoom == loadedZoom);
-    RMLog(@"target - %@, loaded - %@", @(targetZoom), @(loadedZoom));
+
 	return contained && targetZoom == loadedZoom;
 }
 

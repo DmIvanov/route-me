@@ -83,7 +83,6 @@
 - (float) normaliseZoom: (float) zoom
 {
     BOOL ceilRounding = [[DIHelper sharedInstance] roundingCeil];
-    RMLog(@"ceil - %@", @(ceilRounding));
 	//float normalised_zoom = roundf(zoom);
     float normalised_zoom = ceilRounding ? ceil(zoom) : roundf(zoom);
     
@@ -195,7 +194,6 @@
 
 -(float) calculateNormalisedZoomFromScale: (float) scale
 {
-    RMLog(@"scale - %@, calcZoom - %@, return - %@", @(scale), @([self calculateZoomFromScale:scale]), @([self normaliseZoom:[self calculateZoomFromScale:scale]]));
 	return [self normaliseZoom:[self calculateZoomFromScale:scale]];
 }
 
