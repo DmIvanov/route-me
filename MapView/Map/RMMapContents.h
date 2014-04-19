@@ -43,12 +43,12 @@ enum {
 	RMMapMinWidthBound		= 2
 };
 
-#define kDefaultInitialLatitude 59.933  //defined in DIHelper
-#define kDefaultInitialLongitude 30.315 //defined in DIHelper
+#define kDefaultInitialLatitude 59.933  //defined in DISettingsManager
+#define kDefaultInitialLongitude 30.315 //defined in DISettingsManager
 
-#define kDefaultMinimumZoomLevel 10.0   //defined in DIHelper
-#define kDefaultMaximumZoomLevel 18.0   //defined in DIHelper
-#define kDefaultInitialZoomLevel 13.0   //defined in DIHelper
+#define kDefaultMinimumZoomLevel 10.0   //defined in DISettingsManager
+#define kDefaultMaximumZoomLevel 18.0   //defined in DISettingsManager
+#define kDefaultInitialZoomLevel 13.0   //defined in DISettingsManager
 
 @class RMMarkerManager;
 @class RMProjection;

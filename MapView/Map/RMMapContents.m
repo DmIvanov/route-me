@@ -47,7 +47,7 @@
 
 #import "RMMarker.h"
 
-#import "DIHelper.h"
+#import "DISettingsManager.h"
 
 
 @interface RMMapContents (PrivateMethods)
@@ -79,15 +79,15 @@
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = [DIHelper initialLatitude];
-	here.longitude = [DIHelper initialLongitude];
+	here.latitude = [DISettingsManager sharedInstance].initialLatitude;
+	here.longitude = [DISettingsManager sharedInstance].initialLongitude;
 	
 	return [self initWithView:view
 				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
-	  			    zoomLevel:[DIHelper initialZoom]
-				 maxZoomLevel:[DIHelper maxZoom]
-				 minZoomLevel:[DIHelper minZoom]
+	  			    zoomLevel:[DISettingsManager sharedInstance].initialZoom
+				 maxZoomLevel:[DISettingsManager sharedInstance].maxZoom
+				 minZoomLevel:[DISettingsManager sharedInstance].minZoom
 			  backgroundImage:nil
                   screenScale:0];
 }
@@ -95,15 +95,15 @@
 - (id)initWithView: (UIView*) view screenScale:(float)theScreenScale {
     LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = [DIHelper initialLatitude];
-	here.longitude = [DIHelper initialLongitude];
+	here.latitude = [DISettingsManager sharedInstance].initialLatitude;
+	here.longitude = [DISettingsManager sharedInstance].initialLongitude;
 	
 	return [self initWithView:view
 				   tilesource:[[RMOpenStreetMapSource alloc] init]
 				 centerLatLon:here
-	  			    zoomLevel:[DIHelper initialZoom]
-				 maxZoomLevel:[DIHelper maxZoom]
-				 minZoomLevel:[DIHelper minZoom]
+	  			    zoomLevel:[DISettingsManager sharedInstance].initialZoom
+				 maxZoomLevel:[DISettingsManager sharedInstance].maxZoom
+				 minZoomLevel:[DISettingsManager sharedInstance].minZoom
 			  backgroundImage:nil
                   screenScale:theScreenScale];
 }
@@ -118,15 +118,15 @@
 {	
 	LogMethod();
 	CLLocationCoordinate2D here;
-	here.latitude = [DIHelper initialLatitude];
-	here.longitude = [DIHelper initialLongitude];
+	here.latitude = [DISettingsManager sharedInstance].initialLatitude;
+	here.longitude = [DISettingsManager sharedInstance].initialLongitude;
 	
 	return [self initWithView:view
 				   tilesource:newTilesource
 				 centerLatLon:here
-					zoomLevel:[DIHelper initialZoom]
-				 maxZoomLevel:[DIHelper maxZoom]
-				 minZoomLevel:[DIHelper minZoom]
+					zoomLevel:[DISettingsManager sharedInstance].initialZoom
+				 maxZoomLevel:[DISettingsManager sharedInstance].maxZoom
+				 minZoomLevel:[DISettingsManager sharedInstance].minZoom
 			  backgroundImage:nil
                   screenScale:theScreenScale];
 }

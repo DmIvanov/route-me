@@ -198,6 +198,10 @@
 		B8F3FC650EA2E792004D8F85 /* RMMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F3FC630EA2E792004D8F85 /* RMMarker.m */; };
 		B8FA92190E9315EC003A9FE6 /* RMLayerCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */; };
 		B8FA921A0E9315EC003A9FE6 /* RMLayerCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */; };
+		C43741D6190270390095D51E /* DISettingsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C43741D4190270390095D51E /* DISettingsManager.h */; };
+		C43741D7190270390095D51E /* DISettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C43741D5190270390095D51E /* DISettingsManager.m */; };
+		C43741E0190286180095D51E /* DICitySettingsRusSpb.h in Headers */ = {isa = PBXBuildFile; fileRef = C43741DE190286180095D51E /* DICitySettingsRusSpb.h */; };
+		C43741E1190286180095D51E /* DICitySettingsRusSpb.m in Sources */ = {isa = PBXBuildFile; fileRef = C43741DF190286180095D51E /* DICitySettingsRusSpb.m */; };
 		C4997270189D62B400A8DA98 /* DIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = C499726C189D62B400A8DA98 /* DIHelper.h */; };
 		C4997271189D62B400A8DA98 /* DIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C499726D189D62B400A8DA98 /* DIHelper.m */; };
 		C4997272189D62B400A8DA98 /* DIDefaults.h in Headers */ = {isa = PBXBuildFile; fileRef = C499726E189D62B400A8DA98 /* DIDefaults.h */; };
@@ -394,8 +398,13 @@
 		B8F3FC630EA2E792004D8F85 /* RMMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMMarker.m; sourceTree = "<group>"; };
 		B8FA92170E9315EC003A9FE6 /* RMLayerCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMLayerCollection.h; sourceTree = "<group>"; };
 		B8FA92180E9315EC003A9FE6 /* RMLayerCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMLayerCollection.m; sourceTree = "<group>"; };
-		C499726C189D62B400A8DA98 /* DIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIHelper.h; sourceTree = "<group>"; };
-		C499726D189D62B400A8DA98 /* DIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIHelper.m; sourceTree = "<group>"; };
+		C43741D4190270390095D51E /* DISettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DISettingsManager.h; path = DISettingsManager/DISettingsManager.h; sourceTree = "<group>"; };
+		C43741D5190270390095D51E /* DISettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DISettingsManager.m; path = DISettingsManager/DISettingsManager.m; sourceTree = "<group>"; };
+		C43741DD190284C40095D51E /* DICitySettingsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DICitySettingsManager.h; path = DISettingsManager/DICitySettingsManagers/DICitySettingsManager.h; sourceTree = "<group>"; };
+		C43741DE190286180095D51E /* DICitySettingsRusSpb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DICitySettingsRusSpb.h; path = DISettingsManager/DICitySettingsManagers/DICitySettingsRusSpb.h; sourceTree = "<group>"; };
+		C43741DF190286180095D51E /* DICitySettingsRusSpb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DICitySettingsRusSpb.m; path = DISettingsManager/DICitySettingsManagers/DICitySettingsRusSpb.m; sourceTree = "<group>"; };
+		C499726C189D62B400A8DA98 /* DIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DIHelper.h; path = DIHelper/DIHelper.h; sourceTree = "<group>"; };
+		C499726D189D62B400A8DA98 /* DIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DIHelper.m; path = DIHelper/DIHelper.m; sourceTree = "<group>"; };
 		C499726E189D62B400A8DA98 /* DIDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIDefaults.h; sourceTree = "<group>"; };
 		C499726F189D62B400A8DA98 /* DINotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DINotificationNames.h; sourceTree = "<group>"; };
 		C4BD888318708D5600128CD1 /* RMCloudMadeMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCloudMadeMapSource.h; sourceTree = "<group>"; };
@@ -847,6 +856,35 @@
 			name = "Coordinate Systems";
 			sourceTree = "<group>";
 		};
+		C43741D219026FF40095D51E /* DIHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C499726C189D62B400A8DA98 /* DIHelper.h */,
+				C499726D189D62B400A8DA98 /* DIHelper.m */,
+			);
+			name = DIHelper;
+			sourceTree = "<group>";
+		};
+		C43741D3190270020095D51E /* DISettingsManager */ = {
+			isa = PBXGroup;
+			children = (
+				C43741D8190282FC0095D51E /* DICitySettingsManagers */,
+				C43741D4190270390095D51E /* DISettingsManager.h */,
+				C43741D5190270390095D51E /* DISettingsManager.m */,
+			);
+			name = DISettingsManager;
+			sourceTree = "<group>";
+		};
+		C43741D8190282FC0095D51E /* DICitySettingsManagers */ = {
+			isa = PBXGroup;
+			children = (
+				C43741DD190284C40095D51E /* DICitySettingsManager.h */,
+				C43741DE190286180095D51E /* DICitySettingsRusSpb.h */,
+				C43741DF190286180095D51E /* DICitySettingsRusSpb.m */,
+			);
+			name = DICitySettingsManagers;
+			sourceTree = "<group>";
+		};
 		C4997269189D62B400A8DA98 /* DIFiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -860,8 +898,8 @@
 		C499726B189D62B400A8DA98 /* DIClasses */ = {
 			isa = PBXGroup;
 			children = (
-				C499726C189D62B400A8DA98 /* DIHelper.h */,
-				C499726D189D62B400A8DA98 /* DIHelper.m */,
+				C43741D3190270020095D51E /* DISettingsManager */,
+				C43741D219026FF40095D51E /* DIHelper */,
 			);
 			path = DIClasses;
 			sourceTree = "<group>";
@@ -875,6 +913,7 @@
 			files = (
 				B8C974170E8A19B2007D16AD /* RMMercatorToScreenProjection.h in Headers */,
 				B8C974250E8A19B2007D16AD /* RMOpenStreetMapSource.h in Headers */,
+				C43741E0190286180095D51E /* DICitySettingsRusSpb.h in Headers */,
 				B8C974190E8A19B2007D16AD /* RMMapRenderer.h in Headers */,
 				B8C9741D0E8A19B2007D16AD /* RMCoreAnimationRenderer.h in Headers */,
 				B8C974220E8A19B2007D16AD /* RMProjection.h in Headers */,
@@ -900,6 +939,7 @@
 				B8C974CA0E8A9C30007D16AD /* RMCachedTileSource.h in Headers */,
 				B8FA92190E9315EC003A9FE6 /* RMLayerCollection.h in Headers */,
 				B8F3FC640EA2E792004D8F85 /* RMMarker.h in Headers */,
+				C43741D6190270390095D51E /* DISettingsManager.h in Headers */,
 				C4997273189D62B400A8DA98 /* DINotificationNames.h in Headers */,
 				B8474B9A0EB40094006A0BC1 /* FMDatabase.h in Headers */,
 				B8474B9C0EB40094006A0BC1 /* FMDatabaseAdditions.h in Headers */,
@@ -1210,6 +1250,7 @@
 				B8C974660E8A19EA007D16AD /* RMVirtualEarthSource.m in Sources */,
 				B8C974680E8A19EB007D16AD /* RMWebTileImage.m in Sources */,
 				B8C9746C0E8A1A50007D16AD /* RMMapView.m in Sources */,
+				C43741D7190270390095D51E /* DISettingsManager.m in Sources */,
 				B8C974B90E8A280A007D16AD /* RMMapContents.m in Sources */,
 				B8C974CB0E8A9C30007D16AD /* RMCachedTileSource.m in Sources */,
 				B8FA921A0E9315EC003A9FE6 /* RMLayerCollection.m in Sources */,
@@ -1240,6 +1281,7 @@
 				4474211C1302B60A004D6E8A /* RMWMS.m in Sources */,
 				175701DF1323C2E900A5D314 /* NSUserDefaults+RouteMe.m in Sources */,
 				DDA3E85713B00D9E004D861C /* RMMapQuestOSMSource.m in Sources */,
+				C43741E1190286180095D51E /* DICitySettingsRusSpb.m in Sources */,
 				DDCD58D41406F8A400F59E0D /* RMTileStreamSource.m in Sources */,
 				F56554F9146E002B00623AC9 /* RMURLConnectionOperation.m in Sources */,
 			);

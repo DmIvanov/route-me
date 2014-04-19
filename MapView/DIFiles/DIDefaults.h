@@ -15,3 +15,6 @@
 #   define DLog(...)
 #endif
 
+typedef enum : NSUInteger {
+    DICityID_rus_spb    = 1,
+} DICityID;

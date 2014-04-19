@@ -30,6 +30,7 @@
 #import "RMTileImage.h"
 #import "RMTile.h"
 
+#import "DISettingsManager.h"
 #import "DIHelper.h"
 
 @implementation RMDatabaseCache
@@ -38,9 +39,8 @@
 
 + (NSString*)dbPathForTileSource: (id<RMTileSource>) source usingCacheDir: (BOOL) useCacheDir
 {
-    if ([DIHelper offlineMode]) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_119909_10_18" ofType:@"sqlite"];
-        RMLog(@"%@", path);
+    if ([DISettingsManager offlineMode]) {
+        NSString *path = [[DISettingsManager sharedInstance] dbPathForTileSource];
         return path;
     }
     else {
@@ -84,7 +84,7 @@
 	if (dao == nil)
 		return nil;
     
-    if ([DIHelper downloadingTilesFromFileSystem])
+    if ([DISettingsManager downloadingTilesFromFileSystem])
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addImageData:) name:RMMapImageLoadedNotification object:nil];
 	
 	return self;	
@@ -138,14 +138,14 @@
 	
 	@synchronized (self) {
 
-		if (capacity != 0 && [DIHelper cacheBaseCleaning]) {
+		if (capacity != 0 && [DISettingsManager cacheBaseCleaning]) {
 			NSUInteger tilesInDb = [dao count];
 			if (capacity <= tilesInDb) {
 				[dao purgeTiles: MAX(minimalPurge, 1+tilesInDb-capacity)];
 			}
 		}
         
-        if ([DIHelper uploadingTilesToFileSystem]) {
+        if ([DISettingsManager uploadingTilesToFileSystem]) {
             [[DIHelper sharedInstance] addImageToFolder:data forTile:[image tile]];
         }
         else {

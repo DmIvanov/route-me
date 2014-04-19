@@ -31,7 +31,7 @@
 #import "RMMapContents.h"
 #import "RMTileLoader.h"
 
-#import "DIHelper.h"
+#import "DISettingsManager.h"
 
 NSString *RMWebTileImageErrorDomain = @"RMWebTileImageErrorDomain";
 NSString *RMWebTileImageHTTPResponseCodeKey = @"RMWebTileImageHTTPResponseCodeKey";
@@ -71,7 +71,7 @@ static NSOperationQueue *_queue = nil;
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:RMTileRequested object:self];
 
-    if (![DIHelper offlineMode])
+    if (![DISettingsManager offlineMode])
         [self requestTile];
 	
 	return self;

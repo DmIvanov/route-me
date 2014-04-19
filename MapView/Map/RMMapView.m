@@ -36,7 +36,7 @@
 #import "RMProjection.h"
 #import "RMMarkerManager.h"
 
-#import "DIHelper.h"
+#import "DISettingsManager.h"
 
 @interface RMMapView (PrivateMethods)
 // methods for post-touch deceleration, ala UIScrollView
@@ -75,7 +75,7 @@
 	enableZoom = YES;
 	enableRotate = NO;
 	decelerationFactor = kDefaultDecelerationFactor;
-	deceleration = [DIHelper deceleration];
+	deceleration = [DISettingsManager deceleration];
 	
     screenScale = 0.0;
     
