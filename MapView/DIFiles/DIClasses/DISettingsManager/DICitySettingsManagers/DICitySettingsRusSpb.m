@@ -10,7 +10,14 @@
 
 #import <CoreLocation/CoreLocation.h>
 
+
+#define FULL_MAP_FILENAME       @"rus_spb_10_18.sqlite"
+
+
 @implementation DICitySettingsRusSpb
+{
+    BOOL _fullDBDownloaded;
+}
 
 + (DICitySettingsRusSpb *)sharedInstance {
     
@@ -26,6 +33,7 @@
     
     self = [super init];
     if (self) {
+
     }
     return self;
 }
@@ -33,7 +41,10 @@
 
 #pragma mark - Zoom
 - (double)maxZoom {
-    return 18.;
+    if (_fullDBDownloaded)
+        return 18.;
+    else
+        return 15.;
 }
 - (double)minZoom {
     return 10.;
@@ -58,10 +69,27 @@
 }
 
 
-- (NSString*)dbPathForTileSource {
+- (NSString *)dbPathForTileSource {
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"spb_119909_10_18" ofType:@"sqlite"];
+    NSString *path;
+    if (_fullDBDownloaded) {
+        path = [self pathInDocumentsDir];
+        path = [path stringByAppendingPathComponent:FULL_MAP_FILENAME];
+    }
+    else
+        path = [[NSBundle mainBundle] pathForResource:@"rus_spb_10_15" ofType:@"sqlite"];
+    
     return path;
+}
+
+- (NSString *)pathInDocumentsDir {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"MapsDB"];
+    //if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+    //    [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:nil];
+    return dataPath;
 }
 
 @end
