@@ -122,4 +122,9 @@ RMTile TileFromPath(NSString *path) {
     return _mapRoundingCeil;
 }
 
++ (NSInteger)randomValueBetween:(NSInteger)min and:(NSInteger)max {
+    
+    return (NSInteger)(min + arc4random_uniform(max - min + 1));
+}
+
 @end

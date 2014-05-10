@@ -22,4 +22,6 @@
 
 - (BOOL)roundingCeil;
 
++ (NSInteger)randomValueBetween:(NSInteger)min and:(NSInteger)max;
+
 @end

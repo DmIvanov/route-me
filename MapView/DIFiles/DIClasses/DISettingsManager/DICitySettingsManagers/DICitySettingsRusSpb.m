@@ -7,6 +7,7 @@
 //
 
 #import "DICitySettingsRusSpb.h"
+#import "DISettingsManager.h"
 
 #import <CoreLocation/CoreLocation.h>
 
@@ -33,7 +34,7 @@
     
     self = [super init];
     if (self) {
-
+        //_fullDBDownloaded = YES;
     }
     return self;
 }
@@ -72,9 +73,10 @@
 - (NSString *)dbPathForTileSource {
     
     NSString *path;
-    if (_fullDBDownloaded) {
-        path = [self pathInDocumentsDir];
-        path = [path stringByAppendingPathComponent:FULL_MAP_FILENAME];
+    if (_fullDBDownloaded || [DISettingsManager downloadingTilesFromFileSystem]) {
+//        path = [self pathInDocumentsDir];
+//        path = [path stringByAppendingPathComponent:FULL_MAP_FILENAME];
+        path = [[NSBundle mainBundle] pathForResource:@"rus_spb_10_18" ofType:@"sqlite"];
     }
     else
         path = [[NSBundle mainBundle] pathForResource:@"rus_spb_10_15" ofType:@"sqlite"];
