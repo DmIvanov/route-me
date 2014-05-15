@@ -15,6 +15,9 @@
 #   define DLog(...)
 #endif
 
+#define NAVIBAR_DELTA               44.
+#define NAVIBAR_FRAME               CGRectMake(0, 20, SCREEN_SIZE.width, NAVIBAR_DELTA);
+
 typedef enum : NSUInteger {
     DICityID_rus_spb    = 1,
 } DICityID;
