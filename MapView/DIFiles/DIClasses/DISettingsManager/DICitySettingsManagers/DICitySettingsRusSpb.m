@@ -34,7 +34,7 @@
     
     self = [super init];
     if (self) {
-        //_fullDBDownloaded = YES;
+        _fullDBDownloaded = YES;
     }
     return self;
 }

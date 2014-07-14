@@ -6,8 +6,11 @@
 //
 //
 
+#import <objc/runtime.h>
+
 #import "DIHelper.h"
 #import "RMTileImage.h"
+
 
 //#define TILE_SIZE           256
 
@@ -125,6 +128,21 @@ RMTile TileFromPath(NSString *path) {
 + (NSInteger)randomValueBetween:(NSInteger)min and:(NSInteger)max {
     
     return (NSInteger)(min + arc4random_uniform(max - min + 1));
+}
+
++ (NSArray *)propertiesForСlass:(Class)objClass {
+    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:20];
+    unsigned int outCount, i;
+    objc_property_t *properties = class_copyPropertyList(objClass, &outCount);
+    for (i = 0; i < outCount; i++) {
+        objc_property_t property = properties[i];
+        NSString *propertyName = [[NSString alloc] initWithCString:property_getName(property) encoding:NSASCIIStringEncoding];
+        [array addObject:propertyName];
+    }
+    free(properties);
+
+    return array;
 }
 
 @end

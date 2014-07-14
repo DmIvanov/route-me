@@ -409,6 +409,7 @@
 		C499726F189D62B400A8DA98 /* DINotificationNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DINotificationNames.h; sourceTree = "<group>"; };
 		C4BD888318708D5600128CD1 /* RMCloudMadeMapSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMCloudMadeMapSource.h; sourceTree = "<group>"; };
 		C4BD888418708D5600128CD1 /* RMCloudMadeMapSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMCloudMadeMapSource.m; sourceTree = "<group>"; };
+		C4ECD2891969B49800D733B0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C7A967500E8412930031BA75 /* RMAbstractMercatorWebSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMAbstractMercatorWebSource.h; sourceTree = "<group>"; };
 		C7A967510E8412930031BA75 /* RMAbstractMercatorWebSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMAbstractMercatorWebSource.m; sourceTree = "<group>"; };
 		C7A9675C0E84134B0031BA75 /* RMVirtualEarthSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMVirtualEarthSource.h; sourceTree = "<group>"; };
@@ -1054,6 +1055,7 @@
 				French,
 				German,
 				en,
+				ru,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1307,6 +1309,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				17157D8F133BBC8300E28941 /* en */,
+				C4ECD2891969B49800D733B0 /* ru */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
