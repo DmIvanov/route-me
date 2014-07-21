@@ -13,7 +13,7 @@
 
 @interface DIHelper : NSObject
 
-@property (nonatomic) BOOL mapRoundingCeil;
+@property (nonatomic) BOOL mapRoundingCeil; //scale rounding when zomming (if YES objects stay small without tile layer switching and the whole map looks sharper
 
 + (instancetype)sharedInstance;
 

@@ -40,6 +40,7 @@
     if (self) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"dbDescription" ofType:@"plist"];
         _dbDescription = [NSDictionary dictionaryWithContentsOfFile:path];
+        _mapRoundingCeil = YES;
     }
     return self;
 }
