@@ -35,8 +35,6 @@
 
 #import "RMMercatorToTileProjection.h"
 
-#import "DINotificationNames.h"
-
 
 @implementation RMTileImageSet
 
