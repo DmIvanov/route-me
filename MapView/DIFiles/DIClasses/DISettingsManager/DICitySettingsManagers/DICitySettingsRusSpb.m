@@ -12,7 +12,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 
-#define FULL_MAP_FILENAME       @"rus_spb_10_18.sqlite"
+#define FULL_MAP_FILENAME       @"rus_spb_13_17.sqlite"
 
 
 @implementation DICitySettingsRusSpb
@@ -43,15 +43,15 @@
 #pragma mark - Zoom
 - (double)maxZoom {
     if (_fullDBDownloaded)
-        return 18.;
+        return 17.;
     else
-        return 15.;
+        return 17.;
 }
 - (double)minZoom {
-    return 10.;
+    return 13.;
 }
 - (double)initialZoom {
-    return 14.;
+    return 13.;
 }
 
 
@@ -73,14 +73,17 @@
 - (NSString *)dbPathForTileSource {
     
     NSString *path;
-    if (_fullDBDownloaded || [DISettingsManager downloadingTilesFromFileSystem]) {
-//        path = [self pathInDocumentsDir];
-//        path = [path stringByAppendingPathComponent:FULL_MAP_FILENAME];
-        path = [[NSBundle mainBundle] pathForResource:@"rus_spb_10_18" ofType:@"sqlite"];
+    if ([DISettingsManager downloadingTilesFromFileSystem]) {
+        path = [self pathInDocumentsDir];
+        path = [path stringByAppendingPathComponent:FULL_MAP_FILENAME];
     }
-    else
-        path = [[NSBundle mainBundle] pathForResource:@"rus_spb_10_15" ofType:@"sqlite"];
-    
+    else {
+        if (_fullDBDownloaded) {
+            path = [[NSBundle mainBundle] pathForResource:@"rus_spb_13_17" ofType:@"sqlite"];
+        }
+        else
+            path = [[NSBundle mainBundle] pathForResource:@"rus_spb_13_17" ofType:@"sqlite"];
+    }
     return path;
 }
 
