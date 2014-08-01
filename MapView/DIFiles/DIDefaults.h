@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Dmitry Ivanov. All rights reserved.
 //
 
+#import "DIHelper.h"
+
 #define SCREEN_SIZE                 [UIScreen mainScreen].bounds.size
 #define SCREEN_RECT                 [UIScreen mainScreen].bounds
 
@@ -14,6 +16,9 @@
 #else
 #   define DLog(...)
 #endif
+
+#define DILocalizedString(key) \
+    [DIHelper localizedStringForKey:(key)]
 
 #define NAVIBAR_DELTA               44.
 #define NAVIBAR_FRAME               CGRectMake(0, 20, SCREEN_SIZE.width, NAVIBAR_DELTA);

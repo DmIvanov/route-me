@@ -146,4 +146,16 @@ RMTile TileFromPath(NSString *path) {
     return array;
 }
 
++ (NSString *)localizedStringForKey:(NSString *)key
+{
+    static NSBundle* defaultBundle = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        defaultBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"ru" ofType:@"lproj"]];
+    });
+    
+    NSString *string = [[NSBundle mainBundle] localizedStringForKey:key value:nil table:nil];
+    return key != string ? string : [defaultBundle localizedStringForKey:key value:nil table:nil];
+}
+
 @end

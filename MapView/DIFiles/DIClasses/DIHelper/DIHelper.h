@@ -24,5 +24,6 @@
 
 + (NSInteger)randomValueBetween:(NSInteger)min and:(NSInteger)max;
 + (NSArray *)propertiesForСlass:(Class)objClass;
++ (NSString *)localizedStringForKey:(NSString *)key;
 
 @end
